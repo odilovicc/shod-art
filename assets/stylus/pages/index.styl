@@ -1,0 +1,216 @@
+.user {
+    &-hero {
+        &-container {
+            background: url('//www.williamwoodmirrors.co.uk/cdn/shop/collections/Alessia_concrete_full_length_WEB_UGC_2600x.jpg?v=1732203176');
+            height: 70vh;
+            background-size: cover; // Подстраиваем изображение под размеры
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &-title {
+            font-weight: 900;
+            font-size: 32px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        &-subtitle {
+            font-weight: 300;
+            font-size: 18px;
+            margin-top: 10px;
+            color: #fff;
+            width: 52%;
+            text-align: center;
+        }
+
+        &-button {
+            background: transparent !important;
+            border: 2px solid #fff !important;
+            color: #fff !important;
+            padding: 15px 45px;
+            margin-top: 25px;
+            transition: background 0.3s, color 0.3s;
+
+            &:hover {
+                background: #fff !important;
+                color: #000 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            &-container {
+                height: 90vh; // Уменьшаем высоту
+                background-size: cover;
+            }
+
+            &-title {
+                font-size: 24px; // Уменьшаем размер шрифта
+            }
+
+            &-subtitle {
+                font-size: 14px;
+                width: 80%; // Увеличиваем ширину, чтобы текст смотрелся лучше
+            }
+
+            &-button {
+                padding: 10px 30px; // Уменьшаем внутренние отступы
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            &-container {
+                height: 90vh; // Еще меньше для маленьких экранов
+                text-align center
+            }
+
+            &-title {
+                font-size: 20px; // Еще меньше шрифт
+            }
+
+            &-subtitle {
+                font-size: 12px;
+                width: 90%; // Максимальная ширина текста
+            }
+
+            &-button {
+                padding: 8px 20px; // Компактная кнопка
+            }
+        }
+    }
+
+&-products {
+    &-container {
+        padding: 50px 100px;
+    }
+
+    &-text {
+        padding: 50px;
+        text-align: center;
+    }
+
+    &-title {
+        font-weight: 700;
+        margin-bottom: 30px;
+        font-size: 28px; // Стандартный размер для десктопа
+    }
+
+    &-subtitle {
+        width: 70%;
+        margin: 0 auto;
+        font-weight: 300;
+        font-size: 16px; // Стандартный размер для десктопа
+    }
+
+    // Адаптация для мобильных устройств
+    @media (max-width: 768px) {
+        &-container {
+            padding: 30px 20px; // Уменьшаем внутренние отступы
+        }
+
+        &-text {
+            padding: 30px; // Снижаем отступы
+        }
+
+        &-title {
+            font-size: 24px; // Уменьшаем размер шрифта для заголовка
+        }
+
+        &-subtitle {
+            width: 90%; // Увеличиваем ширину для читабельности
+            font-size: 14px; // Уменьшаем шрифт
+        }
+    }
+
+    @media (max-width: 480px) {
+            &-container {
+                padding: 20px 10px; // Компактные отступы для маленьких экранов
+            }
+
+            &-text {
+                padding: 20px;
+            }
+
+            &-title {
+                font-size: 20px; // Еще меньший шрифт
+            }
+
+            &-subtitle {
+                width: 100%; // Максимальная ширина текста
+                font-size: 12px; // Шрифт для телефонов
+            }
+        }
+    }
+}
+.features {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f7f7f7;
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 22%;
+    padding: 10px;
+    
+    i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    .feature {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+}
+.offer {
+    &-container {
+        min-height 80dvh
+        background #141414
+        display flex
+        justify-content center
+        align-items center
+        color #fff
+        flex-direction column
+        gap 20px
+    }
+    &-title {
+        font-size 32px
+        font-weight 900
+    }
+    &-input {
+        background transparent !important
+        border none !important
+        border-radius 0 !important
+        border-bottom 2px solid #fff !important
+        outline none !important
+        padding 10px 0 !important
+        color #fff !important
+    }
+    
+    @media (max-width: 480px) {
+        &-container {
+            text-align center
+        }
+    }  
+}

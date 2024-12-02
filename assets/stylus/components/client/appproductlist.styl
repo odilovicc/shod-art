@@ -1,0 +1,178 @@
+.app-product {
+  &-content {
+    flex: 4;
+    padding: 0 50px;
+
+    @media (max-width: 480px) {
+      padding: 0 25px;
+    }
+  }
+  &-container {
+    display: flex;
+  }
+  &-header {
+    &-container {
+      padding-bottom: 25px;
+    }
+  }
+  &-filters {
+    &-container {
+      flex: 1;
+      position: sticky; // Добавляем sticky
+      top: 20px; // Фиксируем сверху с отступом
+      height: fit-content; // Чтобы высота контейнера не влияла на поведение
+    }
+    &-title {
+      font-size: 24px;
+      font-weight: 900;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    }
+    &-filter {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .p-checkbox-box {
+        border-radius: 0 !important;
+      }
+      .p-checkbox-checked .p-checkbox-box {
+        border-color: #000 !important;
+        background: #000 !important;
+      }
+    }
+    &-active {
+      padding: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+
+      &-filter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        width: max-content;
+        font-size: 14px;
+
+        span {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
+
+
+.app-activeproduct {
+  &-container {
+    width: 30%;
+  }
+  &-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  &-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  &-description {
+    font-size: 14px;
+  }
+  &-price {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  &-orgprice {
+    text-decoration: line-through;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.15);
+  }
+  &-review {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  &-tags {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  &-tag {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  // Медиазапрос для мобильных устройств
+  @media (max-width: 768px) {
+    &-container {
+      width: 100%; // Используем всю ширину экрана
+    }
+    &-text {
+      gap: 10px; // Уменьшаем расстояние между элементами
+    }
+    &-title {
+      font-size: 12px; // Уменьшаем шрифт для компактности
+    }
+    &-description {
+      font-size: 12px; // Уменьшаем описание
+    }
+    &-price {
+      gap: 3px; // Уменьшаем расстояние
+    }
+    &-orgprice {
+      font-size: 10px; // Уменьшаем шрифт
+    }
+    &-review {
+      gap: 5px; // Уменьшаем расстояние
+    }
+    &-tags {
+      gap: 5px; // Уменьшаем расстояние между тегами
+      flex-wrap: wrap; // Разрешаем перенос тегов на новую строку
+    }
+    &-tag {
+      font-size: 10px; // Уменьшаем шрифт
+      padding: 3px; // Делаем более компактным
+    }
+  }
+
+  // Медиазапрос для очень маленьких экранов
+  @media (max-width: 480px) {
+    &-container {
+      width: 100%; // Полная ширина
+    }
+    &-text {
+      gap: 8px; // Еще меньшее расстояние
+    }
+    &-title {
+      font-size: 10px; // Минимальный размер текста
+    }
+    &-description {
+      font-size: 10px;
+    }
+    &-tags {
+      gap: 3px; // Минимальный отступ между тегами
+    }
+    &-tag {
+      font-size: 8px;
+      padding: 2px; // Уменьшаем до минимума
+    }
+  }
+}
+
+.p-accordionheader {
+    padding-left 0 !important
+    padding-right 0 !important
+}

@@ -1,0 +1,85 @@
+.navbar {
+    &-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 0;
+        margin: 0 auto;
+        width: 75%;
+
+        @media (max-width: 480px) {
+            width: 100%;
+            padding-left 20px
+            border-bottom 1px solid rgba(0,0,0,0.15)
+        }
+    }
+    &-navigation {
+        &-footer {
+            &-button {
+                width 50%
+                padding 15px 20px !important
+                border-right 1px solid rgba(0,0,0,0.15) !important
+                border-radius 0 !important
+
+                &.has-active-filter {
+                    &::after {
+                        content: '',
+                        position absolute
+                        top 0
+                        right 0
+                        width 5px
+                        height 5px
+                        border-radius 50px
+                        background #000
+                    }
+                }
+            }
+        }
+        &-container {
+            display flex
+            align-items center
+            gap 15px
+        }
+        &-hamburger {
+            &:hover {
+                cursor pointer
+            }
+        }
+        &-logo {
+            h1 {
+                font-weight 900
+            }
+        }
+
+        &-links {
+            display flex
+            flex-direction column
+            gap 15px
+            overflow hidden
+        }
+        &-link {
+            padding 10px 15px
+            text-transform uppercase
+
+            &:hover {
+                cursor pointer
+            }
+
+            &.active {
+                background #000
+                color #ffff
+                border-bottom none !important
+            }
+            &-bordered {
+               border-bottom 1px solid rgba(0,0,0, 0.15)
+            }
+        }
+    }
+
+    &-nav-container {
+        padding 10px
+        display flex
+        flex-direction column
+        gap 15px
+    }
+}
