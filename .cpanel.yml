@@ -3,5 +3,5 @@ deployment:
 
    tasks:
 
-      - export DEPLOYPATH=/home/shodartu/public_html
+      - export DEPLOYPATH=/home/shodartu/shod-art.uz
       - /bin/cp -R * $DEPLOYPATH
