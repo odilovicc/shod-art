@@ -1,0 +1,7 @@
+---
+deployment:
+
+   tasks:
+
+      - export DEPLOYPATH=/home/shodartu/shod-art.uz
+      - /bin/cp -R * $DEPLOYPATH
