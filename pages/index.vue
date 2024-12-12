@@ -37,4 +37,10 @@
     <AppFooter/>
     <Toast/>
 </template>
+<script setup lang="ts">
+
+useHead({
+    title: generateHeadTitle('Asosiy')
+})
+</script>
 <style src="~/assets/stylus/pages/index.styl"></style>

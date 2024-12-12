@@ -14,4 +14,29 @@
         color inherit !important
         border inherit !important
     }
+    &-danger {
+        background #c75b56 !important
+        border-color #c75b56 !important    
+    }
+
+    &-hasBadge {
+        position absolute
+    }
+    &-badge {
+        position absolute
+        top 0
+        right 0
+        border-radius 20px
+        font-weight 900
+        background var(--primary-color)
+        padding 3px 8px
+        border 2px solid #fff
+        color #fff
+        font-size 8px
+
+        @media (max-width: 360px) {
+            padding 5px 12px
+            font-size 12px
+        }
+    }
 }

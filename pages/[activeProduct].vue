@@ -17,12 +17,12 @@
             </div>
 
             <div class="product-rating">
-                <AppRating :rating="Math.round(activeProduct.rating)"/>
+                <AppRating :rating="Math.round(activeProduct.rating)" />
                 <span class="product-rating-label">{{ activeProduct.reviews }} ta sharhlar</span>
             </div>
 
             <ul class="product-features">
-                <p>{{activeProduct.description}}</p>
+                <p>{{ activeProduct.description }}</p>
             </ul>
 
             <div class="cart-controls">
@@ -31,15 +31,16 @@
                 <button @click="increaseQuantity">+</button>
             </div>
 
-            <button :class="{
-                'add-to-cart': true,
-                disabled: selectedQuantity === 0
-            }" @click="addToCart" :disabled="selectedQuantity === 0">
-                Add to Cart
-            </button>
+            <div class="flex gap-2">
+                <AppButton :class="{
+                    disabled: selectedQuantity === 0,
+                    'flex-auto': true 
+                }" @click="addToCart" label="Savatga qo'shish" prefix-icon="shopping-bag"
+                    :disabled="selectedQuantity === 0" />
 
-            <!-- Для отладки, отображение текущей корзины -->
-            {{ userCart }}
+                <AppButton type="danger" v-if="hasInCart" label="Olib tashlash"
+                    prefix-icon="trash" @click="removeFromCart(activeProduct.id)"/>
+            </div>
         </div>
     </div>
 </template>
@@ -53,7 +54,9 @@ import type { Product } from "~/types/helpers";
 
 const route = useRoute();
 const productStore = useProductStore();
-const { userCart } = productStore;
+const { userCart, isProductInCart, removeFromCart } = productStore;
+
+const hasInCart = computed(() => isProductInCart(activeProduct.value.id))
 
 // Информация о текущем товаре
 const activeProduct = ref<Product>({
@@ -65,7 +68,7 @@ const activeProduct = ref<Product>({
 });
 
 // Переменные для управления количеством
-const selectedQuantity = ref(0);
+const selectedQuantity = ref(1);
 
 // Увеличение количества
 function increaseQuantity() {
@@ -95,8 +98,12 @@ onMounted(() => {
     const product = productStore.getProductById(productId);
     if (product) {
         activeProduct.value = product;
+        useHead({
+            title: generateHeadTitle(`${activeProduct.value.name}`)
+        })
     }
 });
+
 </script>
 
 
@@ -144,6 +151,7 @@ onMounted(() => {
     color: #000;
     font-weight: bold;
 }
+
 .product-rating {
     display: flex;
     align-items: center;
@@ -155,6 +163,7 @@ onMounted(() => {
     font-size: 16px;
     font-weight: 300;
 }
+
 .product-features {
     list-style: none;
     padding: 0;
@@ -204,12 +213,15 @@ button:disabled {
     .product-page {
         flex-direction: column;
     }
+
     .product-title {
         font-size: 1rem;
     }
+
     .product-features {
         font-size: 0.8rem;
     }
+
     .product-rating-label {
         font-size: 12px;
         margin-top: 5px;

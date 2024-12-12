@@ -1,7 +1,7 @@
 import type { Product } from "~/types/helpers";
 
 export const useProductStore = defineStore('product', () => {
-    const userCart = ref<Array<{ id: number; quantity: number }>>([]);
+    let userCart = reactive<Array<{ id: number; quantity: number }>>([]);
     const products: Product[] = [
         {
             id: 1,
@@ -124,77 +124,119 @@ export const useProductStore = defineStore('product', () => {
             description: "A radiant full-length mirror designed to brighten your space. Its sleek design complements any interior style.",
         },
     ];
+    const isClient = typeof window !== "undefined";
+
+    // Загружаем корзину из localStorage при инициализации
+    const loadCartFromLocalStorage = () => {
+        if (isClient) {
+            const savedCart = localStorage.getItem('userCart');
+            if (savedCart) {
+                const parsedCart = JSON.parse(savedCart);
+                const now = Date.now();
+
+                // Фильтруем устаревшие товары (старше 24 часов)
+                userCart = parsedCart.filter(item => now - item.addedAt <= 24 * 60 * 60 * 1000);
+                saveCartToLocalStorage();
+            }
+        } else {
+            alert("POWEL NAXUY")
+        }
+    };
+
+    // Сохраняем корзину в localStorage
+    const saveCartToLocalStorage = () => {
+        if (isClient) {
+            localStorage.setItem('userCart', JSON.stringify(userCart));
+        }
+    };
+
+    // Получить продукт по ID
     function getProductById(id: number) {
         return products.find((product) => product.id === id);
     }
+
+    // Добавить продукт в корзину с временной меткой
     function addProductToCart({ id, quantity }: { id: number; quantity: number }) {
-        const cartItem = userCart.value.find((item) => item.id === id);
+        const cartItem = userCart.find((item) => item.id === id);
+        const now = Date.now();
+
         if (cartItem) {
             cartItem.quantity += quantity;
+            cartItem.addedAt = now; // Обновляем метку времени
         } else {
-            userCart.value.push({ id, quantity });
+            userCart.push({ id, quantity, addedAt: now });
         }
+        saveCartToLocalStorage();
+        loadCartFromLocalStorage();
     }
 
-    function addToCart(product: Product) {
-        const cartItem = userCart.value.find((item) => item.id === product.id);
-        if (cartItem) {
-            cartItem.quantity += 1;
-        } else {
-            userCart.value.push({ ...product, quantity: 1 });
-        }
-    }
-
+    // Проверить, есть ли продукт в корзине
     function isProductInCart(id: number | string, howMuch?: boolean): number | boolean {
         const numericId = typeof id === "string" ? Number(id) : id;
 
         if (howMuch) {
-            const productInCart = userCart.value.filter((item) => item.id === numericId);
+            const productInCart = userCart.filter((item) => item.id === numericId);
             return productInCart.reduce((acc, current) => acc + (current.quantity || 0), 0);
         }
 
-        return !!userCart.value.find((item) => item.id === numericId);
+        return !!userCart.find((item) => item.id === numericId);
     }
 
+    // Увеличить количество товара в корзине
     function incrementProductQuantity(product: { id: number; name: string; price: number }) {
-        const existingProduct = userCart.value.find((item) => item.id === product.id);
+        const existingProduct = userCart.find((item) => item.id === product.id);
 
         if (existingProduct) {
             existingProduct.quantity += 1;
+            existingProduct.addedAt = Date.now(); // Обновляем метку времени
         } else {
-            userCart.value.push({ ...product, quantity: 1 });
+            userCart.push({ id: product.id, quantity: 1, addedAt: Date.now() });
         }
+        saveCartToLocalStorage();
     }
 
-    /**
-     * Уменьшает количество товара в корзине или удаляет его, если количество становится равным 0.
-     * @param productId - ID товара.
-     */
+    // Уменьшить количество товара в корзине
     function decrementProductQuantity(productId: number) {
-        const productIndex = userCart.value.findIndex((item) => item.id === productId);
+        const productIndex = userCart.findIndex((item) => item.id === productId);
 
         if (productIndex !== -1) {
-            const product = userCart.value[productIndex];
+            const product = userCart[productIndex];
             if (product.quantity > 1) {
                 product.quantity -= 1;
             } else {
-                userCart.value.splice(productIndex, 1);
+                userCart.splice(productIndex, 1);
             }
         }
+        saveCartToLocalStorage();
     }
 
-    function removeFromCart(productId: number) {
-        userCart.value = userCart.value.filter((item) => item.id !== productId);
+    // Удалить продукт из корзины
+    const removeFromCart = (productId: number) => {
+        userCart = userCart.filter(item => item.id !== productId);
+        saveCartToLocalStorage();
+        loadCartFromLocalStorage()
+    };
+
+    // Очистка устаревших товаров из корзины вручную (опционально)
+    const clearExpiredCartItems = () => {
+        const now = Date.now();
+        userCart = userCart.filter(item => now - item.addedAt <= 24 * 60 * 60 * 1000);
+        saveCartToLocalStorage();
+    };
+
+    // Загружаем корзину только на клиенте
+    if (isClient) {
+        loadCartFromLocalStorage();
     }
     return {
         getProductById,
         products,
-        addToCart,
         isProductInCart,
         userCart,
         removeFromCart,
         decrementProductQuantity,
         incrementProductQuantity,
-        addProductToCart
+        addProductToCart,
+        loadCartFromLocalStorage
     }
 })
