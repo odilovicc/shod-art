@@ -7,7 +7,7 @@
                 <h1>SHOD-ART</h1>
             </div>
         </div>
-        <div class="navbar-additional-container" v-if="!isMobile">
+        <div class="navbar-additional-container">
             <template v-for="button in additionalPartButtons">
                 <AppButton label="" :image-icon="`/icons/${button.icon}.svg`" type="stock"
                     class="navbar-additional-button" />

@@ -15,15 +15,16 @@
     }
     &-additional {
         &-container {
-            @media (max-width: 360px) {
-                visibility visible
+            @media (max-width: 768px) {
+                visibility hidden
             }
+            visibility visible
             display flex
         }
     }
     &-navigation {
         &-footer {
-            @media (max-width: 360px) {
+            @media (max-width: 768px) {
                 display block
             }
             display none
